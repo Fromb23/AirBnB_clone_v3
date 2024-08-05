@@ -4,9 +4,18 @@
 """
 from api.v1.views import app_views
 from flask import jsonify
+from models import storage
 
+@app_views.route('/stats', methods=['GET'])
 
-@app_views.route('/status', methods=['GET'])
 def status():
     """Return the API status"""
-    return jsonify({"status": "OK"})
+    counts = {
+            "amenities": storage.count("Amenities"),
+            "cities": storage.count("City"),
+            "places": storage.count("Places"),
+            "reviews": storage.count("Reviews"),
+            "states": storage.count("State"),
+            "users": storage.count("User")
+            }
+    return jsonify(counts)
