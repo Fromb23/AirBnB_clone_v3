@@ -2,6 +2,7 @@
 """
     Flask API endpoint
 """
+from flask import json, Response
 from api.v1.views import app_views
 from flask import jsonify
 from models import storage
@@ -18,4 +19,8 @@ def status():
             "states": storage.count("State"),
             "users": storage.count("User")
             }
-    return jsonify(counts)
+    response = Response(
+        json.dumps(counts, indent=2),
+        mimetype='application/json'
+        )
+    return response
