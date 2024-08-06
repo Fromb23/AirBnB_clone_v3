@@ -12,3 +12,21 @@ from models import storage
 def status():
     """Return the API status"""
     return jsonify({"status": "OK"})
+
+
+@app_views.route('/stats')
+def count():
+    """Return the number of objects"""
+    counts = {
+            "amenities": storage.count("Amenities"),
+            "cities": storage.count("City"),
+            "places": storage.count("Places"),
+            "reviews": storage.count("Reviews"),
+            "states": storage.count("State"),
+            "users": storage.count("User")
+            }
+    response = Response(
+        json.dumps(counts, indent=2),
+        mimetype='application/json'
+        )
+    return response
