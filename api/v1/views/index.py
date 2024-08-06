@@ -11,16 +11,4 @@ from models import storage
 
 def status():
     """Return the API status"""
-    counts = {
-            "amenities": storage.count("Amenities"),
-            "cities": storage.count("City"),
-            "places": storage.count("Places"),
-            "reviews": storage.count("Reviews"),
-            "states": storage.count("State"),
-            "users": storage.count("User")
-            }
-    response = Response(
-        json.dumps(counts, indent=2),
-        mimetype='application/json'
-        )
-    return response
+    return jsonify({"status": "OK"})
